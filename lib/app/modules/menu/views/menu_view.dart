@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:jolibee/app/modules/menu/controllers/menu_controller.dart';
+import 'package:jolibee/app/widgets/custom_category.dart';
 
 class MenuView extends GetView<CustomMenuController> {
   const MenuView({super.key});
@@ -13,12 +14,14 @@ class MenuView extends GetView<CustomMenuController> {
         title: const Text('Menu'),
         centerTitle: true,
       ),
-      body: const Center(
-        child: Text(
-          'MenuView is working',
-          style: TextStyle(fontSize: 20),
-        ),
-      ),
+      body: ListView(
+        padding: const EdgeInsets.all(16.0),
+        children: [
+          CustomCategory()
+        ],
+      )
+
+
     );
   }
 }

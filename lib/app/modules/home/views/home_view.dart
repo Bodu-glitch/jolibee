@@ -135,7 +135,7 @@ class HomeBody extends StatelessWidget {
                   }).toList(),
             ),
           ),
-          CustomProductCard(),
+          CustomCarouselProductCard(),
         ],
       ),
     );
