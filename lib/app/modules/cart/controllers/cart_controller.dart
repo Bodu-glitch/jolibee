@@ -1,13 +1,7 @@
-import 'dart:math';
-
 import 'package:get/get.dart';
-import 'package:jolibee/app/widgets/custom_category.dart';
 import 'package:jolibee/app/widgets/custom_product_card.dart';
 
-class CategoryDetailController extends GetxController {
-  //TODO: Implement CategoryDetailController
-
-  final category = Get.arguments as CategoryItem;
+class CartController extends GetxController {
 
   final Map<int, List<ProductCard>> productCards = {
     // gà giòn vui vẻ
@@ -53,12 +47,30 @@ class CategoryDetailController extends GetxController {
     ],
   };
 
-  RxList<ProductCard> productList = <ProductCard>[].obs;
+  var cart = <int, int>{}.obs;
+
+  selectedProductCards() {
+    var selectedProducts = <ProductCard>[];
+    cart.forEach((productId, quantity) {
+      for (var productList in productCards.values) {
+        final product = productList.firstWhere(
+              (p) => p.productId == productId,
+          orElse: () => ProductCard(
+            productId: 0,
+            price: 0,
+            description: '',
+            image: '',
+          ),
+        );
+        selectedProducts.add(product);
+      }
+    });
+    return selectedProducts;
+  }
+
   @override
   void onInit() {
     super.onInit();
-    print('category: ${category.id}');
-    productList.value = productCards[category.id] ?? [];
   }
 
   @override
@@ -71,8 +83,13 @@ class CategoryDetailController extends GetxController {
     super.onClose();
   }
 
-  changeToProductDetail(ProductCard product) {
-    Get.toNamed('/product-detail', arguments: product);
+  void addToCart(int productId, int quantity) {
+    if (cart.containsKey(productId)) {
+      cart[productId] = cart[productId]! + quantity;
+    } else {
+      cart[productId] = quantity;
+    }
+    print(cart[productId]);
   }
 
 }

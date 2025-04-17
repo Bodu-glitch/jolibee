@@ -63,8 +63,7 @@ class CategoryDetailView extends GetView<CategoryDetailController> {
                               style: ButtonStyle(
                                 backgroundColor: MaterialStateProperty.all(Color.fromRGBO(207, 0, 15, 1)),
                               ),
-                              onPressed: () {
-                              },
+                              onPressed: (){controller.changeToProductDetail(controller.productList[index]);},
                               child: SizedBox(
                                 width: double.infinity,
                                 child: Center(

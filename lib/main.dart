@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:jolibee/app/modules/cart/controllers/cart_controller.dart';
+import 'package:jolibee/app/modules/layout/controllers/layout_controller.dart';
 
 import 'app/routes/app_pages.dart';
 
@@ -34,5 +36,15 @@ void main() {
             shape: CircularNotchedRectangle(),
           )
     ),
+      initialBinding: AppBinding(),
+
   ));
+}
+
+class AppBinding extends Bindings {
+  @override
+  void dependencies() {
+    Get.put<LayoutController>(LayoutController(), permanent: true);
+    Get.put<CartController>(CartController(), permanent: true);
+  }
 }

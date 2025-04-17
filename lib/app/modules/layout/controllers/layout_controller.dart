@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:jolibee/app/modules/cart/views/cart_view.dart';
 import 'package:jolibee/app/modules/home/bindings/home_binding.dart';
 import 'package:jolibee/app/modules/home/views/home_view.dart';
 import 'package:jolibee/app/modules/menu/bindings/menu_binding.dart';
@@ -11,7 +12,7 @@ class LayoutController extends GetxController {
 
   static LayoutController get to => Get.find();
 
-  final pages = [HomeView(), MenuView()].obs;
+  final pages = [HomeView(), MenuView(),CartView()].obs;
 
   var currentIndex = 0.obs;
 
@@ -47,6 +48,12 @@ class LayoutController extends GetxController {
       return GetPageRoute(
         settings: settings,
         page: () => const MenuView(),
+        binding: MenuBinding(),
+      );
+    if (settings.name == '/cart')
+      return GetPageRoute(
+        settings: settings,
+        page: () => const CartView(),
         binding: MenuBinding(),
       );
 

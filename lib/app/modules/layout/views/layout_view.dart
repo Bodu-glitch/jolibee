@@ -21,6 +21,10 @@ class LayoutView extends GetView<LayoutController> {
               icon: Icon(Icons.menu),
               label: 'Menu',
             ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.shopping_cart),
+              label: 'Cart',
+            ),
           ],
           currentIndex: controller.currentIndex.value,
           selectedItemColor: Color.fromRGBO(207, 41, 0, 1),
