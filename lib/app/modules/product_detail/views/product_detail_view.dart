@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:jolibee/app/modules/cart/controllers/cart_controller.dart';
-import 'package:jolibee/app/modules/layout/controllers/layout_controller.dart';
 
 import '../controllers/product_detail_controller.dart';
 
@@ -15,7 +14,6 @@ class ProductDetailView extends GetView<ProductDetailController> {
   Widget build(BuildContext context) {
     // get cart controller
     final CartController cartController = Get.put(CartController());
-    final LayoutController layoutController = Get.put(LayoutController());
 
     return Scaffold(
       appBar: AppBar(),
@@ -167,15 +165,6 @@ class ProductDetailView extends GetView<ProductDetailController> {
                               child: OutlinedButton(
                                 onPressed: () {
                                   cartController.addToCart(controller.product.productId,controller.quantity.value);
-                                  Get.snackbar(
-                                    'Thành công',
-                                    'Đã thêm sản phẩm vào giỏ hàng',
-                                    backgroundColor: Colors.green,
-                                    colorText: Colors.white,
-                                    duration: Duration(seconds: 2),
-                                  );
-                                  layoutController.changePage(2);
-                                  Get.offAllNamed('/layout');
                                 },
                                 child: Text(
                                   'Thêm vào giỏ',

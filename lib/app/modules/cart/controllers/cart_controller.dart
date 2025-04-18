@@ -1,7 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:jolibee/app/modules/layout/controllers/layout_controller.dart';
 import 'package:jolibee/app/widgets/custom_product_card.dart';
 
 class CartController extends GetxController {
+  final LayoutController layoutController = Get.put(LayoutController());
 
   final Map<int, List<ProductCard>> productCards = {
     // gà giòn vui vẻ
@@ -84,12 +87,82 @@ class CartController extends GetxController {
   }
 
   void addToCart(int productId, int quantity) {
+    if (quantity <= 0) {
+      Get.snackbar(
+        'Error',
+        'Quantity must be greater than 0',
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+        snackPosition: SnackPosition.TOP,
+      );
+      return;
+    }
+
     if (cart.containsKey(productId)) {
       cart[productId] = cart[productId]! + quantity;
     } else {
       cart[productId] = quantity;
     }
     print(cart[productId]);
+
+    Get.snackbar(
+      'Thành công',
+      'Đã thêm sản phẩm vào giỏ hàng',
+      backgroundColor: Colors.green,
+      colorText: Colors.white,
+      duration: Duration(seconds: 2),
+    );
+    layoutController.changePage(2);
+    Get.offAllNamed('/layout');
+  }
+
+  void removeFromCart(int productId) {
+    if (cart.containsKey(productId)) {
+      cart.remove(productId);
+      Get.snackbar(
+        'Thành công',
+        'Đã xóa sản phẩm khỏi giỏ hàng',
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+        duration: Duration(seconds: 2),
+      );
+    } else {
+      Get.snackbar(
+        'Error',
+        'Sản phẩm không có trong giỏ hàng',
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    }
+  }
+
+  // increase quantity
+  void increaseQuantity(int productId) {
+    if (cart.containsKey(productId)) {
+      cart[productId] = cart[productId]! + 1;
+    } else {
+      Get.snackbar(
+        'Error',
+        'Sản phẩm không có trong giỏ hàng',
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    }
+  }
+
+  // decrease quantity
+  void decreaseQuantity(int productId) {
+    if (cart.containsKey(productId)) {
+      if (cart[productId]! > 1) {
+        cart[productId] = cart[productId]! - 1;
+      } else {
+        removeFromCart(productId);
+      }
+    } else {
+      Get.snackbar(
+        'Error',
+        'Sản phẩm không có trong giỏ hàng',
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    }
   }
 
 }
